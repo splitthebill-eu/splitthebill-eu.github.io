@@ -8,26 +8,32 @@
 
     <!-- Local Stylesheets -->
     <link rel="stylesheet" href="splitthebill.css" media="screen">
+    <link rel="stylesheet" href="header.css" media="screen">
     
 
-    <!-- Jquery (load first!) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    
-    
-    <!-- Google AdSense -->
-    <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4290613853758058" crossorigin="anonymous"></script>-->
-    <script>
-        $(function () {
-            $("#header").load("z_header.html");
-            $("#footer").load("z_footer.html");
-        });
-    </script>
 </head>
 <body id="background">
 
     
     <!-- load header in -->
-    <header id="header"></header>
+    <header id="header">
+        <table align="center" id="headertable">
+            <tr>
+                <td align="center" class="collapse-width">
+                    <table class="collapse-width">
+                        <tr>
+                            <td align="center" >
+                                <a class="return-home" >
+                                    <h1 class="header-h1" id="title" >Split The Bill</h1>
+                                    <p id="bya1">by a1creator</p>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </header>
     
     <div id="fill-page">
         <div id="adding-container" >
@@ -55,6 +61,12 @@
                 </div>
             </div>
         </div>
+        <div id="payments-holder">
+            <div id="payment-template" class="person-info" hidden>
+                <p class="person-name info-p no-margin round-title"></p>
+                <p class="person-paid info-p no-margin">Paid: _</p>
+            </div>
+        </div>
         <div id="payment-order" hidden>
         </div>
         <div id="people-holder">
@@ -71,7 +83,13 @@
     <!-- js script -->
     <script src="splitthebill.js"></script>
     
-    
+        
+    <script>
+        let returnhomes = document.getElementsByClassName("return-home");
+        for (let i = 0; i < returnhomes.length; i++) {
+            returnhomes[i].href = "#";
+        }
+    </script>
     
 </body>
 

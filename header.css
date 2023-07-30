@@ -10,6 +10,7 @@ a {
     font-size: 2em;
     font-style: normal;
     color: azure;
+    margin-bottom: 0;
 }
 
 #headertable {
@@ -17,3 +18,38 @@ a {
     padding: 0 2em;
     border-radius: 1em;
 }
+
+#bya1 {
+    padding: 0;
+    margin-top: 0;
+
+    font-size: 0.8em;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+
+    color: rgba(240, 255, 255, 0.836);
+}
+
+#payments-holder {
+    /*display is set to grid in js*/
+    display: none;
+    grid-template-columns: repeat(auto-fill, 10em);
+    grid-auto-rows: auto;
+    grid-auto-flow: dense;
+    
+    margin: auto;
+    
+    gap: 1em;
+    justify-content: center;
+    
+    margin: 1em auto;
+    padding: 1em;
+    
+    border-radius: 1rem;
+    background-color: rgb(33, 42, 65);
+    
+}
+
+
+

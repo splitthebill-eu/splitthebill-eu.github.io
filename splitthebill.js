@@ -1,8 +1,10 @@
 
 var personContainer = document.getElementById("people-holder");
+var paymentsContainer = document.getElementById("payments-holder");
 var paymentAdder = document.getElementById("payment-adder");
 
 var personTemplate = document.getElementById("person-template");
+var paymentTemplate = document.getElementById("payment-template");
 
 var nameinput = document.getElementById("person-name-input");
 
@@ -52,8 +54,6 @@ function getMyColor()
 function spawnPerson(person)
 {
     var personElement = personTemplate.cloneNode(true);
-    
-    console.log(person.color)
 
     personElement.removeAttribute("hidden");
     personElement.getElementsByClassName("person-name")[0].innerHTML = person.name;
@@ -61,6 +61,18 @@ function spawnPerson(person)
     personElement.style.backgroundColor = person.color;
     
     personContainer.appendChild(personElement);
+}
+
+function spawnPayment(amount, person)
+{
+    var paymentElement = paymentTemplate.cloneNode(true);
+
+    paymentElement.removeAttribute("hidden");
+    paymentElement.getElementsByClassName("person-name")[0].innerHTML = person.name;
+    paymentElement.getElementsByClassName("person-paid")[0].innerHTML = "Paid: "+ amount;
+    paymentElement.style.backgroundColor = person.color;
+    
+    paymentsContainer.appendChild(paymentElement);
 }
 
 function addPersonOnClick(e = "")
@@ -75,6 +87,7 @@ function addPersonOnClick(e = "")
 
     paymentAdder.style.display = "flex";
     personContainer.style.display = "grid";
+    paymentsContainer.style.display = "grid";
 }
 
 function addDropdownOption(person)
@@ -91,7 +104,9 @@ function addPaymentOnClick()
     let index = paymentDropdown.value;
     let amount = parseInt(paymentInput.value);
     addBill(amount, persons[index]);
+    
 }
+
 
 function updateInformation(person)
 {
@@ -245,6 +260,8 @@ function addBill(amountPaid, payee)
 {
     total += amountPaid;
     payee.amountpaid += amountPaid;
+
+    spawnPayment(amountPaid, payee)
 
     refreshAllInfo();
 }
