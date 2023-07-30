@@ -59,12 +59,15 @@ a {
     right: 0;
     top: 0;
     font-size: 0.6em;
+    
+    border: none;
 
     background-color: rgba(190, 43, 43, 0.849);
     border-radius: 0.1em;
-    padding: 0.1em 0.3em;
+    padding: 0.2em 0.4em;
     width: fit-content;
-    color: black;
+    color: rgb(241, 241, 241);
+
 }
 
 .relative {

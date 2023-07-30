@@ -13,6 +13,8 @@ var paymentDropdown = document.getElementById("payment-dropdown");
 
 var paymentOrderContainer = document.getElementById("payment-order");
 
+var segments = document.getElementsByClassName("segment");
+
 var persons = [];
 
 var payments = [];
@@ -280,6 +282,7 @@ function addPerson(name)
     addDropdownOption(person);
 
     refreshAllInfo();
+    hideSegments(false);
 }
 
 function addBill(amountPaid, payee)
@@ -330,3 +333,19 @@ function calculateAmountOwed(person)
     person.amountowed = (share - paid).toFixed(2);
 }
 
+function hideSegments(bool)
+{
+    if (bool)
+    {
+        for (let i = 0; i < segments.length; i++) {
+            segments[i].style.display = "none";
+        }
+    }
+    else
+    {
+        for (let i = 0; i < segments.length; i++) {
+            segments[i].style.display = "block";
+        }
+    }
+}
+hideSegments(true);
