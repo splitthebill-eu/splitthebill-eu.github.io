@@ -52,4 +52,21 @@ a {
 }
 
 
+.X {
+    display: block;
+    position: absolute;
 
+    right: 0;
+    top: 0;
+    font-size: 0.6em;
+
+    background-color: rgba(190, 43, 43, 0.849);
+    border-radius: 0.1em;
+    padding: 0.1em 0.3em;
+    width: fit-content;
+    color: black;
+}
+
+.relative {
+    position: relative;
+}

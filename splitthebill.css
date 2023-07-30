@@ -54,6 +54,10 @@ html {
     padding: 0.2em 0.4em;
     width: fit-content;
 }
+.middle-title {
+    padding: 0.4em;
+    margin: 0.5em auto;
+}
 
 .white-input {
     display: flex;
@@ -91,7 +95,16 @@ html {
     background-color: rgb(75, 122, 192);
 }
 
-#people-holder {
+.segment {
+    position: relative;
+    margin: 1em auto;
+    padding: 1em;
+    
+    border-radius: 1rem;
+    background-color: rgb(33, 42, 65);
+}
+
+.holder {
     /*display is set to grid in js*/
     display: none;
     grid-template-columns: repeat(auto-fill, 10em);
@@ -102,13 +115,6 @@ html {
     
     gap: 1em;
     justify-content: center;
-    
-    margin: 1em auto;
-    padding: 1em;
-    
-    border-radius: 1rem;
-    background-color: rgb(33, 42, 65);
-    
 }
 
 #payment-adder {

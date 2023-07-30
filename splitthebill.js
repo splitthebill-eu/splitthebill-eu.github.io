@@ -15,6 +15,8 @@ var paymentOrderContainer = document.getElementById("payment-order");
 
 var persons = [];
 
+var payments = [];
+
 const personColors = [
     "rgb(139, 112, 23)",
     "rgb(23, 103, 139)",
@@ -50,6 +52,54 @@ function getMyColor()
     return personColors[myIndex];
 }
 
+// --------------------
+
+
+function removePayment(payment, paymentID)
+{
+    let paymentIndex = 0;
+    for (let i = 0; i < payments.length; i++) {
+        if (payments[i].name == payment.name)
+        {
+            paymentIndex = i;
+            break;
+        }
+    }
+
+    // fix the total
+    total -= payment.amountpaid;
+    // fix the person paid
+    for (let i = 0; i < persons.length; i++) {
+        if (persons[i].name == payment.name)
+        {
+            persons[i].amountpaid -= payment.amountpaid;
+            break;
+        }
+    }
+
+    // remove the deleted element
+    payments.splice(paymentIndex, 1);
+
+    // destroy visually
+    let paymentelement = document.getElementById(`payment${paymentID}`);
+    paymentelement.remove();
+
+    refreshAllInfo();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// --------------------
 
 function spawnPerson(person)
 {
@@ -57,20 +107,25 @@ function spawnPerson(person)
 
     personElement.removeAttribute("hidden");
     personElement.getElementsByClassName("person-name")[0].innerHTML = person.name;
-    personElement.id = "person"+person.name;
     personElement.style.backgroundColor = person.color;
+    personElement.id = "person"+person.name;
     
     personContainer.appendChild(personElement);
 }
 
-function spawnPayment(amount, person)
+function spawnPayment(payment, person)
 {
+    let i = payments.length-1;
     var paymentElement = paymentTemplate.cloneNode(true);
 
     paymentElement.removeAttribute("hidden");
     paymentElement.getElementsByClassName("person-name")[0].innerHTML = person.name;
-    paymentElement.getElementsByClassName("person-paid")[0].innerHTML = "Paid: "+ amount;
+    paymentElement.getElementsByClassName("person-paid")[0].innerHTML = "Paid: "+ payment.amountpaid;
     paymentElement.style.backgroundColor = person.color;
+    paymentElement.id = `payment${i}`;
+
+    let xbutton = paymentElement.getElementsByClassName("X")[0];
+    xbutton.onclick = function() { removePayment(payment, i) };
     
     paymentsContainer.appendChild(paymentElement);
 }
@@ -87,7 +142,6 @@ function addPersonOnClick(e = "")
 
     paymentAdder.style.display = "flex";
     personContainer.style.display = "grid";
-    paymentsContainer.style.display = "grid";
 }
 
 function addDropdownOption(person)
@@ -104,7 +158,7 @@ function addPaymentOnClick()
     let index = paymentDropdown.value;
     let amount = parseInt(paymentInput.value);
     addBill(amount, persons[index]);
-    
+    paymentsContainer.style.display = "grid";
 }
 
 
@@ -215,7 +269,6 @@ function arrangePaymentOrder()
 //------------------------- backend under, frontend above
 
 var total = 0;
-var persons = [];
 
 
 function addPerson(name)
@@ -225,6 +278,19 @@ function addPerson(name)
 
     spawnPerson(person);
     addDropdownOption(person);
+
+    refreshAllInfo();
+}
+
+function addBill(amountPaid, payee)
+{
+    var payment = {"name":payee.name, "amountpaid":amountPaid};
+    payments.push(payment);
+
+    total += amountPaid;
+    payee.amountpaid += amountPaid;
+
+    spawnPayment(payment, payee)
 
     refreshAllInfo();
 }
@@ -254,16 +320,6 @@ function refreshAllInfo()
 
     }
     arrangePaymentOrder();
-}
-
-function addBill(amountPaid, payee)
-{
-    total += amountPaid;
-    payee.amountpaid += amountPaid;
-
-    spawnPayment(amountPaid, payee)
-
-    refreshAllInfo();
 }
 
 
